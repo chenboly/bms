@@ -24,7 +24,7 @@ public class UserRepository {
         ResultSet resultSet = null;
         List<User> userList = new ArrayList<>();
         try (Connection connection = dataSource.getConnection()){
-            String sql = "SELECT * FROM tb_user WHERE status IS TRUE ";
+            String sql = "SELECT * FROM tb_user WHERE status IS TRUE";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
 
@@ -53,12 +53,60 @@ public class UserRepository {
 
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "INSERT INTO tb_user(username, fullname, gender, email) values(?,?,?,?)";
+            String sql = "INSERT INTO tb_user(username, fullname, gender, email) VALUES (?,?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, user.getUsername());
             preparedStatement.setString(2, user.getFullname());
             preparedStatement.setString(3, user.getGender());
             preparedStatement.setString(4, user.getEmail());
+            int status = preparedStatement.executeUpdate();
+            return status;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+
+    }
+
+    public int update (User user){
+
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "UPDATE tb_user SET username = ?, fullname = ?, gender = ?, email = ? WHERE id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, user.getUsername());
+            preparedStatement.setString(2, user.getFullname());
+            preparedStatement.setString(3, user.getGender());
+            preparedStatement.setString(4, user.getEmail());
+            preparedStatement.setInt(5, user.getId());
+            int status = preparedStatement.executeUpdate();
+            return status;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+//    public int delete (Integer id){
+//        try {
+//            Connection connection = dataSource.getConnection();
+//            String sql = "DELETE FROM tb_user WHERE id = ?";
+//            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+//            preparedStatement.setInt(1, id);
+//            int status = preparedStatement.executeUpdate();
+//            return status;
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            return 0;
+//        }
+//    }
+
+    public int delete (Integer id){
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "UPDATE tb_user SET status = FALSE WHERE id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
             int status = preparedStatement.executeUpdate();
             return status;
         } catch (SQLException e) {
