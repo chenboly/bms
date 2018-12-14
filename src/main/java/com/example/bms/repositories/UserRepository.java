@@ -2,6 +2,7 @@ package com.example.bms.repositories;
 
 import com.example.bms.models.User;
 import com.example.bms.repositories.Providers.UserProviders;
+import com.example.bms.services.UserService;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -21,12 +22,14 @@ public interface UserRepository {
 
 
 //    @Insert("INSERT INTO tb_user (username, fullname, gender, email) VALUES (#{username}, #{fullname}, #{gender}, #{email})")
-    @SelectProvider(type = UserProviders.class, method = "saveUserProvider")
+    @InsertProvider(type = UserProviders.class, method = "saveUserProvider")
     int save(User user);
 
-    @Update("UPDATE tb_user SET username = #{username}, fullname = #{fullname}, gender = #{gender}, email = #{email} WHERE id = #{id}")
-    int update (User user);
+//    @Update("UPDATE tb_user SET username = #{username}, fullname = #{fullname}, gender = #{gender}, email = #{email} WHERE id = #{id}")
+    @UpdateProvider(type = UserProviders.class, method = "updateUserProvider")
+    int update (@Param("p_user") User user);
 
-    @Update("UPDATE tb_user SET status = FALSE WHERE id = #{id}")
-    int delete (Integer id);
+//    @Update("UPDATE tb_user SET status = FALSE WHERE id = #{id}")
+    @DeleteProvider(type = UserProviders.class, method = "deleteUserProvider")
+    int delete (@Param("id") Integer id);
 }
