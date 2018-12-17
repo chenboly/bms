@@ -1,5 +1,6 @@
 package com.example.bms.repositories;
 
+
 import com.example.bms.models.Book;
 import com.example.bms.models.Category;
 import com.example.bms.repositories.Providers.CategoryProviders;
@@ -23,4 +24,7 @@ public interface CategoryRepository {
             @Result(column = "publish_date", property = "publishDate")
     })
     List<Book> getAllBookByCategory(Integer id);
+
+    @InsertProvider(type = CategoryProviders.class, method = "saveCategoryProvider")
+    boolean save(@Param("category") Category category);
 }

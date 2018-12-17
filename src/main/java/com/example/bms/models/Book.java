@@ -4,12 +4,13 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
+
 public class Book {
 
     private Integer id;
     private String title;
-    private String isbn;
-    private String book_image;
+    private String ISBN;
+    private String bookImage;
     private List<Author> authors;
     private Category category;
     private Date publishDate;
@@ -19,11 +20,11 @@ public class Book {
     public Book() {
     }
 
-    public Book(Integer id, String title, String isbn, String book_image, List<Author> authors, Category category, Date publishDate, boolean status, Timestamp createdAt) {
+    public Book(Integer id, String title, String ISBN, String bookImage, List<Author> authors, Category category, Date publishDate, boolean status, Timestamp createdAt) {
         this.id = id;
         this.title = title;
-        this.isbn = isbn;
-        this.book_image = book_image;
+        this.ISBN = ISBN;
+        this.bookImage = bookImage;
         this.authors = authors;
         this.category = category;
         this.publishDate = publishDate;
@@ -47,20 +48,20 @@ public class Book {
         this.title = title;
     }
 
-    public String getIsbn() {
-        return isbn;
+    public String getISBN() {
+        return ISBN;
     }
 
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
+    public void setISBN(String ISBN) {
+        this.ISBN = ISBN;
     }
 
-    public String getBook_image() {
-        return book_image;
+    public String getBookImage() {
+        return bookImage;
     }
 
-    public void setBook_image(String book_image) {
-        this.book_image = book_image;
+    public void setBookImage(String bookImage) {
+        this.bookImage = bookImage;
     }
 
     public List<Author> getAuthors() {
@@ -105,6 +106,16 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book{" + "id=" + id + ", title='" + title + '\'' + ", isbn='" + isbn + '\'' + ", book_image='" + book_image + '\'' + ", authors=" + authors + ", category=" + category + ", publishDate=" + publishDate + ", status=" + status + ", createdAt=" + createdAt + '}';
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", ISBN='" + ISBN + '\'' +
+                ", bookImage='" + bookImage + '\'' +
+                ", authors=" + authors +
+                ", category=" + category +
+                ", publishDate=" + publishDate +
+                ", status=" + status +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }

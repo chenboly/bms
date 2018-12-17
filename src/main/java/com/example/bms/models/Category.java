@@ -1,10 +1,13 @@
 package com.example.bms.models;
 
+import org.hibernate.validator.constraints.Length;
+
 import java.sql.Timestamp;
 import java.util.List;
 
 public class Category {
     private Integer id;
+    @Length (max = 30)
     private String name;
     private List<Book> books;
     private boolean status;
