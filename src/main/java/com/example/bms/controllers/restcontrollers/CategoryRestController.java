@@ -20,10 +20,19 @@ public class CategoryRestController {
     public CategoryRestController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Map<String, Object>> getOneCategoryById(@PathVariable("id") Integer id){
+        Map<String, Object> respone = new HashMap<>();
+        Category category = this.categoryService.getOneCategoryById(id);
+        respone.put("data", category);
+        respone.put("message", "Get Category Successfully");
+        respone.put("status", true);
+        return new ResponseEntity<>(respone, HttpStatus.OK);
+    }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ResponseEntity<List<Category>> getAllCategories(){
-        List<Category> categories = this.categoryService.getAllCategories();
+    public ResponseEntity<List<Category>> getAllCategories(String name){
+        List<Category> categories = this.categoryService.getAllCategories(name);
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 

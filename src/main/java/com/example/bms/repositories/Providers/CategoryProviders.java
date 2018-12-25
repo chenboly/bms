@@ -6,10 +6,21 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class CategoryProviders {
 
-    public String getAllCategoriesProvider(){
+    public String getOneCategoryByIdProvider(Integer id){
+        return new SQL(){{
+            SELECT("*");
+            FROM("tb_category");
+            WHERE("id = #{id}");
+        }}.toString();
+    }
+    public String getAllCategoriesProvider(String name){
         return new SQL(){{
             SELECT("*");
             FROM("tb_category c");
+            if(name != null && !name.isEmpty()){
+                System.out.println("ok check");
+                WHERE("c.name ilike '%'|| #{name} || '%' ");
+            }
             WHERE("c.status IS TRUE");
             ORDER_BY("c.id");
 
