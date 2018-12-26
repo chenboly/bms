@@ -29,4 +29,9 @@ public class CategoryServiceImpl implements CategoryService {
     public boolean save(Category category) {
         return this.categoryRepository.save(category);
     }
+
+    @Override
+    public boolean update(Category category) {
+        return this.categoryRepository.update(category);
+    }
 }

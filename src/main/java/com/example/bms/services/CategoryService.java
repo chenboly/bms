@@ -9,4 +9,5 @@ public interface CategoryService {
     Category getOneCategoryById (Integer id);
     List<Category> getAllCategories(String name);
     boolean save (Category category);
+    boolean update(Category category);
 }

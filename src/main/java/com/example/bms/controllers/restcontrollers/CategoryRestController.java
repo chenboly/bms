@@ -52,4 +52,15 @@ public class CategoryRestController {
         }
 
     }
+
+    @PutMapping("")
+    public ResponseEntity<Map<String, Object>> update (@RequestBody Category category){
+        Map<String, Object> respone = new HashMap<>();
+        boolean status = this.categoryService.update(category);
+        if(status){
+            respone.put("message", "Update category successfully!!");
+            respone.put("status", true);
+        }
+        return new ResponseEntity<>(respone, HttpStatus.OK);
+    }
 }

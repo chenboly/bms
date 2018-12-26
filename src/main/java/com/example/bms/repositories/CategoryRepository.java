@@ -37,4 +37,7 @@ public interface CategoryRepository {
 
     @InsertProvider(type = CategoryProviders.class, method = "saveCategoryProvider")
     boolean save(@Param("category") Category category);
+
+    @UpdateProvider(type = CategoryProviders.class, method = "updateCategoryProvider")
+    boolean update(Category category);
 }

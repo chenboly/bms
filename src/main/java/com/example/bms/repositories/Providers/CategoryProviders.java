@@ -21,7 +21,7 @@ public class CategoryProviders {
                 System.out.println("ok check");
                 WHERE("c.name ilike '%'|| #{name} || '%' ");
             }
-            WHERE("c.status IS TRUE");
+//            WHERE("c.status IS TRUE");
             ORDER_BY("c.id");
 
         }}.toString();
@@ -31,6 +31,15 @@ public class CategoryProviders {
         return new SQL(){{
             INSERT_INTO("tb_category");
             VALUES("name","#{category.name}");
+        }}.toString();
+    }
+
+    public String updateCategoryProvider(Category category){
+        return new SQL(){{
+            UPDATE("tb_category");
+            SET("name=#{name}");
+            SET("status=#{status}");
+            WHERE("id = #{id}");
         }}.toString();
     }
 }
