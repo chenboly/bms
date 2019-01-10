@@ -63,9 +63,9 @@
                             <button th:attr="data-id=*{id}" type="button" class="btn btn-primary btn-xs btn-update">
                                 <i class="fa fa-edit"></i>
                             </button>
-                            <a href="#" type="button" class="btn btn-danger btn-xs">
+                            <button th:attr="data-id=*{id}" type="button" class="btn-delete-category btn btn-danger btn-xs">
                                 <i class="fa fa-trash"></i>
-                            </a>
+                            </button>
                         </td>
                     </tr>
                     </tbody></table>
@@ -121,7 +121,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary btn-submit-update">Save changes</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -134,7 +134,7 @@
 
 <script layout:fragment="script">
     $(document).ready(function () {
-
+        //seach jquery
         $('#btn-search-category').on('click', function () {
             var text_to_search = $('#table_search').val();
             if(text_to_search ==''){
@@ -143,6 +143,7 @@
                 window.location = '/admin/categories/all?name=' + text_to_search;
             }
         });
+        //get id once click on btn-update
         var data_id ='';
         $('.btn-update').on('click', function () {
            data_id =$(this).attr('data-id');
@@ -161,8 +162,8 @@
            //     }
            // });
         });
-
-        $('.modal').on('show.bs.modal', function (e) {
+        //ajax pass value from table list to modal form
+        $('.modal').on('show.bs.modal', function () {
             $.ajax({
                 url:'/api/v1/categories/' + data_id,
                 method:'GET',
@@ -182,7 +183,59 @@
                 }
             });
         });
-    })
+        //ajax update record
+        $('body').on('click', '.btn-submit-update', function () {
+            var status = $("input[name='optionsRadios']:checked").val();
+            var data = {
+                id: $('#category-id').val(),
+                name:$('#category-name').val(),
+                status:status
+            };
+
+            $.ajax({
+                url:'/api/v1/categories/',
+                method:'PUT',
+                contentType:'application/json',
+                data: JSON.stringify(data),
+                success: function (response) {
+                    $('.modal').modal('hide');
+                    window.location.reload();
+                    console.log(response);
+                    $('#category-id').val(response.data.id);
+                    $('#category-name').val(response.data.name);
+                    if (response.data.status == false){
+                        $('#status-false').attr('checked', 'checked');
+                    }else{
+                        $('#status-true').attr('checked', 'checked');
+                    }
+                },
+                error: function (response) {
+                    console.log(response)
+                }
+            });
+        });
+
+        //ajax delete
+        $('.btn-delete-category').on('click', function () {
+            data_id = $('.btn-delete-category').attr('data-id');
+            if(confirm("Are sure you want to delte?")){
+                $.ajax({
+                    url:'/api/v1/categories/' + data_id,
+                    method:'DELETE',
+                    contentType:'application/json',
+                    success: function (response) {
+                        window.location.reload();
+                        console.log(response);
+
+                    },
+                    error: function (response) {
+                        console.log(response)
+                    }
+                });
+            }
+
+        });
+    });
 </script>
 </body>
 </html>

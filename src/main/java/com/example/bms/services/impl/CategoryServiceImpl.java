@@ -34,4 +34,9 @@ public class CategoryServiceImpl implements CategoryService {
     public boolean update(Category category) {
         return this.categoryRepository.update(category);
     }
+
+    @Override
+    public Integer delete(Integer id) {
+        return this.categoryRepository.delete(id);
+    }
 }

@@ -42,4 +42,14 @@ public class CategoryProviders {
             WHERE("id = #{id}");
         }}.toString();
     }
+
+    public String deleteCategoryProvider(@Param("id") Integer id){
+        return new SQL(){{
+            DELETE_FROM("tb_category");
+            WHERE("id = #{id}");
+//            UPDATE("tb_category");
+//            SET("status = false");
+//            WHERE("id = #{id}");
+        }}.toString();
+    }
 }

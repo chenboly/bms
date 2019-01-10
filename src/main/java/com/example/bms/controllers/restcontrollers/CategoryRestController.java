@@ -63,4 +63,15 @@ public class CategoryRestController {
         }
         return new ResponseEntity<>(respone, HttpStatus.OK);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> Delete (@PathVariable Integer id){
+        Map<String, Object> respone = new HashMap<>();
+        Integer status = this.categoryService.delete(id);
+        if (status > 0){
+            respone.put("message", "delete category success!!");
+            respone.put("status", true);
+        }
+        return new ResponseEntity<>(respone, HttpStatus.OK);
+    }
 }

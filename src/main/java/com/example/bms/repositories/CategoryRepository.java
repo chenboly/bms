@@ -40,4 +40,7 @@ public interface CategoryRepository {
 
     @UpdateProvider(type = CategoryProviders.class, method = "updateCategoryProvider")
     boolean update(Category category);
+
+    @DeleteProvider(type = CategoryProviders.class, method = "deleteCategoryProvider")
+    int delete(@Param("id") Integer id);
 }
