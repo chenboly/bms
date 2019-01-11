@@ -71,7 +71,23 @@
                     </tbody></table>
             </div>
             <!-- /.box-body -->
+            <!--box footer-->
+            <div class="box-footer clearfix">
+                <ul class="pagination pagination-sm no-margin pull-right">
+                    <li><a th:href="@{/admin/categories/all/paginate(page=1, name=${filter})}">First</a></li>
+                    <li><a th:href="@{/admin/categories/all/paginate(page=${paginate.previousPage}, name=${filter})}">«</a></li>
+
+                    <li th:each="i:${#numbers.sequence(paginate.startPage, paginate.endPage)}">
+                        <a th:text="${i}" th:href="@{/admin/categories/all/paginate(page=${paginate.nextPage}, name=${filter})}">1</a>
+                    </li>
+
+                    <li><a th:href="@{/admin/categories/all/paginate(page=${paginate.nextPage}, name=${filter})}">»</a></li>
+                    <li><a th:href="@{/admin/categories/all/paginate(page=${paginate.totalPages}, name=${filter})}">Last</a></li>
+                </ul>
+            </div>
+            <!--/.box footer-->
         </div>
+
     </section>
     <!-- /.content -->
     <!--start modal-->

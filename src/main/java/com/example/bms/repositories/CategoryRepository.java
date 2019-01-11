@@ -34,7 +34,8 @@ public interface CategoryRepository {
             @Result(column = "created_at", property = "createdAt"),
             @Result(column = "id", property = "books", many = @Many(select = "getAllBookByCategory"))
     })
-    List<Category> getAllCategoriesPaginate(@Param("name") String name, @Param("paginate") Paginate paginate);
+    List<Category> getAllCategoriesPaginate(@Param("name") String name,
+                                            @Param("paginate") Paginate paginate);
 
     @Select("select count(*) from tb_category where name ilike '%' || #{name} || '%'")
     int count (String name);

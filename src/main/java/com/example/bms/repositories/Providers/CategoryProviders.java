@@ -29,7 +29,8 @@ public class CategoryProviders {
     }
 
     //for pagination
-    public String getAllCategoriesPaginateProvider(@Param("name") String name, @Param("paginate") Paginate paginate){
+    public String getAllCategoriesPaginateProvider(@Param("name") String name,
+                                                   @Param("paginate") Paginate paginate){
         return new SQL(){{
             SELECT("*");
             FROM("tb_category c");
@@ -37,7 +38,7 @@ public class CategoryProviders {
                 WHERE("c.name ilike '%'|| #{name} || '%' ");
             }
 //            WHERE("c.status IS TRUE");
-            ORDER_BY("c.id desc LIMIT #{paginate.limit} OFFSET #{paginate.offset}");
+            ORDER_BY("c.id asc LIMIT #{paginate.limit} OFFSET #{paginate.offset}");
 
         }}.toString();
     }

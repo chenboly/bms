@@ -31,11 +31,15 @@ public class CategoryController {
     public String showAllCategoryPaginate(@RequestParam(required = false) String name,
                                           Model model,
                                           Paginate paginate){
+        if (name==null)
+            name="";
         int totalRecord = this.categoryService.count(name);
         paginate.setTotalCount(totalRecord);
 
         List<Category> categories = this.categoryService.getAllCategoriesPaginate(name, paginate);
         model.addAttribute("categoryList", categories);
+        model.addAttribute("paginate", paginate);
+        model.addAttribute("filter", name);
         return "admin/categories/list-all-category";
     }
 }
