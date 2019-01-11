@@ -1,6 +1,7 @@
 package com.example.bms.repositories.Providers;
 
 import com.example.bms.models.Category;
+import com.example.bms.utilities.Paginate;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.SQL;
 
@@ -23,6 +24,20 @@ public class CategoryProviders {
             }
 //            WHERE("c.status IS TRUE");
             ORDER_BY("c.id");
+
+        }}.toString();
+    }
+
+    //for pagination
+    public String getAllCategoriesPaginateProvider(@Param("name") String name, @Param("paginate") Paginate paginate){
+        return new SQL(){{
+            SELECT("*");
+            FROM("tb_category c");
+            if(name != null && !name.isEmpty()){
+                WHERE("c.name ilike '%'|| #{name} || '%' ");
+            }
+//            WHERE("c.status IS TRUE");
+            ORDER_BY("c.id desc LIMIT #{paginate.limit} OFFSET #{paginate.offset}");
 
         }}.toString();
     }

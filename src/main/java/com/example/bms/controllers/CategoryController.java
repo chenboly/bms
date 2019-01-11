@@ -2,6 +2,7 @@ package com.example.bms.controllers;
 
 import com.example.bms.models.Category;
 import com.example.bms.services.CategoryService;
+import com.example.bms.utilities.Paginate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,18 @@ public class CategoryController {
     @GetMapping("/all")
     public String showAllCategory(@RequestParam(required = false) String name, Model model){
         List<Category> categories = this.categoryService.getAllCategories(name);
+        model.addAttribute("categoryList", categories);
+        return "admin/categories/list-all-category";
+    }
+    //for pagination
+    @GetMapping("/all/paginate")
+    public String showAllCategoryPaginate(@RequestParam(required = false) String name,
+                                          Model model,
+                                          Paginate paginate){
+        int totalRecord = this.categoryService.count(name);
+        paginate.setTotalCount(totalRecord);
+
+        List<Category> categories = this.categoryService.getAllCategoriesPaginate(name, paginate);
         model.addAttribute("categoryList", categories);
         return "admin/categories/list-all-category";
     }
