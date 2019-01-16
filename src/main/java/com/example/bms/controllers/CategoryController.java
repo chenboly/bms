@@ -6,6 +6,7 @@ import com.example.bms.utilities.Paginate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -42,4 +43,10 @@ public class CategoryController {
         model.addAttribute("filter", name);
         return "admin/categories/list-all-category";
     }
+
+//    @GetMapping("/add")
+//    public String showSaveCategoryForm(Model model){
+//        model.addAttribute("category",new Category());
+//        return "admin/categories/add-category";
+//    }
 }
