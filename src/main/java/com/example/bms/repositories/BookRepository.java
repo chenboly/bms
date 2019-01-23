@@ -2,12 +2,27 @@ package com.example.bms.repositories;
 
 import com.example.bms.models.Book;
 import com.example.bms.models.Category;
+import com.example.bms.models.Form.BookForm;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
 public interface BookRepository {
+
+    @Insert("INSERT INTO tb_book(title, isbn, book_image, cat_id, publish_date)" +
+            "VALUES(#{title}, #{ISBN}, #{bookImage}, #{category.id}, #{publishDate})")
+    @Options(useGeneratedKeys = true)
+    boolean saveBook (BookForm bookForm);
+
+    @Insert({"<script>",
+            "INSERT INTO tb_book_author(bookid, authorid)",
+            "VALUES",
+            "<foreach collection='authors' item='author' ",
+            "index='ind' separator=','>",
+            "(#{id}, #{author})",
+            "</foreach>", "</script>"})
+    boolean saveBookAuthor(BookForm bookForm);
 
 //    This is the method using join table book and category together
 //    @Select("SELECT * FROM tb_book WHERE status IS TRUE ORDER BY id")

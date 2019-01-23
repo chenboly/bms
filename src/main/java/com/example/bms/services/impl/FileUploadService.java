@@ -32,7 +32,7 @@ public class FileUploadService {
 
         //create new random file name
         String fileName = file.getOriginalFilename();
-        String extension = fileName.substring(fileName.lastIndexOf(".png"));
+        String extension = fileName.substring(fileName.lastIndexOf(".PNG"));
         fileName = UUID.randomUUID() + "." +extension;
         System.out.println(extension);
         System.out.println(fileName);

@@ -2,7 +2,9 @@ package com.example.bms.controllers;
 
 import com.example.bms.models.Author;
 import com.example.bms.models.Book;
+import com.example.bms.models.Form.BookForm;
 import com.example.bms.services.AuthorServices;
+import com.example.bms.services.BookServices;
 import com.example.bms.services.CategoryService;
 import com.example.bms.services.impl.FileUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,8 @@ public class BookController {
     private FileUploadService fileUploadService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private BookServices bookServices;
     private AuthorServices authorServices;
 
     public BookController(AuthorServices authorServices) {
@@ -41,9 +45,16 @@ public class BookController {
     }
 
     @PostMapping("/add/submit")
-    public String saveBook(Book book, @RequestParam("cover") MultipartFile file){
+    public String saveBook(BookForm bookForm, @RequestParam("cover") MultipartFile file){
         System.out.println(file);
-        System.out.println(book);
+        System.out.println(bookForm);
+        String fileName = this.fileUploadService.upload(file);
+        bookForm.setBookImage(fileName);
+        if (this.bookServices.saveBook(bookForm)){
+            System.out.println("Save Success!!");
+            System.out.println(bookForm);
+            this.bookServices.saveBookAuthor(bookForm);
+        }
         return "redirect:/admin/books/add";
     }
 }

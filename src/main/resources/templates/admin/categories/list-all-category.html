@@ -258,6 +258,8 @@
                 }
             });
         });
+
+
         //ajax delete
         $('.btn-delete-category').on('click', function () {
             data_id = $('.btn-delete-category').attr('data-id');
@@ -269,7 +271,6 @@
                     success: function (response) {
                         window.location.reload();
                         console.log(response);
-
                     },
                     error: function (response) {
                         console.log(response)

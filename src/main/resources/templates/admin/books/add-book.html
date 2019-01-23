@@ -45,7 +45,7 @@
 
                             <div class="form-group">
                                 <label>Authors</label>
-                                <select  style="width: 100%" class="js-example-basic-multiple" name="authors[]" multiple="multiple">
+                                <select  style="width: 100%" class="js-example-basic-multiple" name="authors" multiple="multiple">
                                     <option th:each="author:${authors}" th:value="${author.id}" th:text="${author.getName()}"></option>
                                 </select>
                             </div>

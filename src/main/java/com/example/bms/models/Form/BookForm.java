@@ -4,7 +4,6 @@ import com.example.bms.models.Category;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.security.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +13,7 @@ public class BookForm {
     private String title;
     private String ISBN;
     private String bookImage;
-    private List<Integer> authors = new ArrayList<>();
+    private List<Integer> authors;
     private Category category;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date publishDate;
