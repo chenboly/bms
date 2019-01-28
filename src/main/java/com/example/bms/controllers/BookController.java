@@ -36,6 +36,7 @@ public class BookController {
         return "";
     }
 
+    //add book with thymeleaf
     @GetMapping("/add")
     public String showAddBookForm(Model model){
         model.addAttribute("book", new Book());
@@ -44,12 +45,19 @@ public class BookController {
         return "admin/books/add-book";
     }
 
+    //add book with ajax
+    @GetMapping("/add/ajax")
+    public String showAddBookFormAjax(){
+        return "admin/books/add-book-ajax";
+    }
+
     @PostMapping("/add/submit")
     public String saveBook(BookForm bookForm, @RequestParam("cover") MultipartFile file){
         System.out.println(file);
         System.out.println(bookForm);
         String fileName = this.fileUploadService.upload(file);
         bookForm.setBookImage(fileName);
+
         if (this.bookServices.saveBook(bookForm)){
             System.out.println("Save Success!!");
             System.out.println(bookForm);
